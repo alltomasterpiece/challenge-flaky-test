@@ -1,7 +1,7 @@
 describe('Sign Up', () => {
   it('Adds person to course', () => {
     cy.visit('/')
-
+    
     cy.get('input[name="name"]')
       .click()
       .type('Some Name')
@@ -18,11 +18,14 @@ describe('Sign Up', () => {
     cy.get('select[name="course"]')
       .select('git-it')
       .should('have.value', 'git-it')
-
+    
     cy.get('input[type="submit"]')
       .click()
-
+    cy.waitUntil(() => cy.get('input[type="submit"]').then(submit => submit.val()== "Saved!"));
+    
     cy.get('li')
       .should('contain', 'Some Name - some@email.com - core - git-it')
+
+    
   })
 })
